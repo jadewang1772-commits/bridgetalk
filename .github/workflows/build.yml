@@ -17,12 +17,14 @@ jobs:
 
       - name: Download source
         run: |
-          curl -L --retry 3 -o src.tar.gz "https://litter.catbox.moe/7an36w.gz"
+          curl -L --retry 3 -o src.tar.gz "https://litter.catbox.moe/0yo2zn.gz"
           tar -xzf src.tar.gz
           ls -la
 
       - name: Fix dependency versions for compileSdk 33
         run: |
+          # Public source bundle ships appcompat 1.7.0 / material 1.11.0,
+          # which require compileSdk 34. Force them back to SDK-33-compatible versions.
           sed -i 's/androidx\.appcompat:appcompat:[0-9.][0-9.]*/androidx.appcompat:appcompat:1.6.1/g' app/build.gradle
           sed -i 's/com\.google\.android\.material:material:[0-9.][0-9.]*/com.google.android.material:material:1.9.0/g' app/build.gradle
           echo "--- app/build.gradle dependencies after fix ---"
