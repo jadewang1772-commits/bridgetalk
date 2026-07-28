@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Download source
         run: |
-          curl -L --retry 3 -o src.tar.gz "https://litter.catbox.moe/9kdj2g.gz"
+          curl -L --retry 3 -o src.tar.gz "https://litter.catbox.moe/7an36w.gz"
           tar -xzf src.tar.gz
           ls -la
 
