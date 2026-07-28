@@ -12,6 +12,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Download source
         run: |
           curl -L --retry 3 -o src.tar.gz "https://litter.catbox.moe/7an36w.gz"
@@ -68,5 +71,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           cp app/build/outputs/apk/debug/app-debug.apk BridgeTalk.apk
-          gh release delete v1.0 --yes --cleanup-tag || true
-          gh release create v1.0 BridgeTalk.apk --title "BridgeTalk v1.0" --notes "WhatsApp live translator APK" --repo ${{ github.repository }}
+          TAG="v1.0.${{ github.run_number }}"
+          gh release delete "$TAG" --yes --cleanup-tag || true
+          gh release create "$TAG" BridgeTalk.apk --title "BridgeTalk $TAG" --notes "WhatsApp live translator APK" --repo ${{ github.repository }}
